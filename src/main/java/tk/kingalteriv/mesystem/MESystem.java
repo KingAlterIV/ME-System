@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import tk.kingalteriv.mesystem.block.MEStateHandler;
 import tk.kingalteriv.mesystem.commands.MESystemCommand;
 import tk.kingalteriv.mesystem.listeners.RightClickListener;
 import tk.kingalteriv.mesystem.utilities.ItemBuilder;
@@ -25,6 +26,7 @@ public class MESystem extends JavaPlugin {
     private static MESystem instance;
 
     private PaperCommandManager commandManager;
+    private MEStateHandler stateHandler;
 
     public MESystem() {
         instance = this;
@@ -36,12 +38,17 @@ public class MESystem extends JavaPlugin {
 
         this.commandManager = new PaperCommandManager(this);
         this.commandManager.registerCommand(new MESystemCommand());
+        this.stateHandler = new MEStateHandler();
 
-        Bukkit.getPluginManager().registerEvents(new RightClickListener(), this);
+        Bukkit.getPluginManager().registerEvents(new RightClickListener(this), this);
     }
 
     public PaperCommandManager getManager() {
         return commandManager;
+    }
+
+    public MEStateHandler getStateHandler() {
+        return stateHandler;
     }
 
     public static MESystem getInstance() {

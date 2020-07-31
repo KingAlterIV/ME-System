@@ -10,11 +10,17 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import tk.kingalteriv.mesystem.MEBlock;
 import tk.kingalteriv.mesystem.MEItem;
 import tk.kingalteriv.mesystem.MESystem;
+import tk.kingalteriv.mesystem.block.BlockMECore;
 
 public class RightClickListener implements Listener {
+
+    private final MESystem plugin;
+
+    public RightClickListener(MESystem plugin) {
+        this.plugin = plugin;
+    }
 
     @EventHandler
     public void rightClickListener(PlayerInteractEvent event){
@@ -31,20 +37,23 @@ public class RightClickListener implements Listener {
         event.setCancelled(true);
 
         if (action == Action.RIGHT_CLICK_BLOCK) {
-            Block clickedBlock = event.getClickedBlock();
-            if (clickedBlock == null) {
+            Block clickedBlock = event.getClickedBlock().getRelative(event.getBlockFace());
+            if (clickedBlock == null || clickedBlock.getType() != Material.AIR) {
                 return;
             }
 
             clickedBlock.setType(Material.DISPENSER);
             BlockState state = clickedBlock.getState();
             if (state instanceof Dispenser) {
-                MEBlock meBlock = new MEBlock((Dispenser) state);
-
                 MEItem meItem = new MEItem(item);
-                meBlock.setSlotAmount(meItem.getSlotAmount());
-                meBlock.build();
+
+                BlockMECore core = new BlockMECore(clickedBlock, false);
+                core.setSlotAmount(meItem.getSlotAmount());
+                core.writeToState();
+
+                this.plugin.getStateHandler().registerCore(core);
             }
         }
     }
+
 }
