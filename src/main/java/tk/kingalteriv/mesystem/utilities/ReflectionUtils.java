@@ -1,6 +1,5 @@
 package tk.kingalteriv.mesystem.utilities;
 
-import java.io.StringReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
@@ -17,16 +16,13 @@ public final class ReflectionUtils {
     private static Method methodParse;
     private static Method methodFromNBTCompound;
 
-    private static Constructor<?> constructorMojangsonParser;
     private static Constructor<?> constructorNBTTagCompound;
 
     private ReflectionUtils() { }
 
     public static ItemStack itemStackFromNBT(String nbtString) {
         try {
-            Object mojangsonParser = constructorMojangsonParser.newInstance(new StringReader(nbtString));
-            Object nbtCompound = methodParse.invoke(mojangsonParser);
-
+            Object nbtCompound = methodParse.invoke(null, nbtString);
             Object nmsItemStack = methodFromNBTCompound.invoke(null, nbtCompound);
             return (ItemStack) methodAsCraftMirror.invoke(null, nmsItemStack);
         } catch (ReflectiveOperationException e) {
@@ -49,6 +45,7 @@ public final class ReflectionUtils {
     public static void init(String version) {
         ReflectionUtils.version = version;
 
+        Class<?> classNBTBase = getNMSClass("NBTBase");
         Class<?> classNBTTagCompound = getNMSClass("NBTTagCompound");
         Class<?> classMojangsonParser = getNMSClass("MojangsonParser");
         Class<?> classItemStack = getNMSClass("ItemStack");
@@ -57,11 +54,10 @@ public final class ReflectionUtils {
         methodAsCraftMirror = getMethod(classCraftItemStack, "asCraftMirror", classItemStack);
         methodAsNMSCopy = getMethod(classCraftItemStack, "asNMSCopy", ItemStack.class); // Bukkit's ItemStack
         methodSave = getMethod(classItemStack, "save", classNBTTagCompound);
-        methodAsString = getMethod(classNBTTagCompound, "asString");
-        methodParse = getMethod(classMojangsonParser, "f"); // NOTE: This is obfuscated and may need updating between versions
+        methodAsString = getMethod(classNBTBase, "asString");
+        methodParse = getMethod(classMojangsonParser, "parse", String.class);
         methodFromNBTCompound = getMethod(classItemStack, "a", classNBTTagCompound); // NOTE: This is obfuscuated and may need updating between versions
 
-        constructorMojangsonParser = getConstructor(classMojangsonParser, StringReader.class);
         constructorNBTTagCompound = getConstructor(classNBTTagCompound);
     }
 
