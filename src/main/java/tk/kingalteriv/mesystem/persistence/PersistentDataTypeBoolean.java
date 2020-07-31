@@ -1,10 +1,10 @@
-package tk.kingalteriv.mesystem.utilities.tagtypes;
+package tk.kingalteriv.mesystem.persistence;
 
 import org.bukkit.persistence.PersistentDataAdapterContext;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 
-public class BooleanTagType implements PersistentDataType<Byte, Boolean> {
+public class PersistentDataTypeBoolean implements PersistentDataType<Byte, Boolean> {
 
     @Override
     public @NotNull Class<Byte> getPrimitiveType() {

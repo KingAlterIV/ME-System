@@ -10,6 +10,7 @@ import tk.kingalteriv.mesystem.commands.MESystemCommand;
 import tk.kingalteriv.mesystem.listeners.RightClickListener;
 import tk.kingalteriv.mesystem.utilities.ItemBuilder;
 import tk.kingalteriv.mesystem.utilities.MNamespacedKeys;
+import tk.kingalteriv.mesystem.utilities.ReflectionUtils;
 
 public class MESystem extends JavaPlugin {
 
@@ -17,6 +18,8 @@ public class MESystem extends JavaPlugin {
 
     public MESystem() {
         instance = this;
+
+        ReflectionUtils.init(Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3]);
     }
 
     public static MESystem getInstance() {

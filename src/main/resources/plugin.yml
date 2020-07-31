@@ -1,6 +1,6 @@
 name: ME-System
 version: 1.0-SNAPSHOT
 main: tk.kingalteriv.mesystem.MESystem
-api-version: 1.13
+api-version: 1.16
 authors: [KingAlterIV]
 description: A plugin that will (hopefully) be like the ME System from the Applied Energistics 2 mod.
