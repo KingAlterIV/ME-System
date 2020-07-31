@@ -2,9 +2,11 @@ package tk.kingalteriv.mesystem.utilities;
 
 import org.bukkit.ChatColor;
 
-public class Color {
+public final class Color {
 
-    public String ify(String s){
+    private Color() { }
+
+    public static String ify(String s){
         return ChatColor.translateAlternateColorCodes('&', s);
     }
 

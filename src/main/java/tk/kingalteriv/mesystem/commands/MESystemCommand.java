@@ -13,13 +13,11 @@ import tk.kingalteriv.mesystem.utilities.Color;
 @CommandPermission("mesystem")
 public class MESystemCommand extends BaseCommand {
 
-    Color color = new Color();
-
     @Default
     @CommandPermission("mesystem.help")
     public void onDefault(Player sender) {
-        sender.sendMessage(color.ify("&f---------------- <#FBEE0F>ME-System &f----------------"));
-        sender.sendMessage(color.ify("<#FBEE0F>/mesystem give &f: Gives yourself a weapon/armor."));
+        sender.sendMessage(Color.ify("&f---------------- <#FBEE0F>ME-System &f----------------"));
+        sender.sendMessage(Color.ify("<#FBEE0F>/mesystem give &f: Gives yourself a weapon/armor."));
     }
 
     @Subcommand("give")
