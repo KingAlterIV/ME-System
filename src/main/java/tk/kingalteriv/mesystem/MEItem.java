@@ -4,7 +4,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import tk.kingalteriv.mesystem.persistence.PersistentDataTypeBoolean;
+
+import tk.kingalteriv.mesystem.persistence.MEPersistentDataTypes;
 import tk.kingalteriv.mesystem.utilities.MNamespacedKeys;
 
 public class MEItem {
@@ -30,11 +31,11 @@ public class MEItem {
     }
 
     public boolean isTerminal(){
-        return this.persistentDataContainer.getOrDefault(MNamespacedKeys.ME_SYSTEM_TERMINAL, new PersistentDataTypeBoolean(), false);
+        return this.persistentDataContainer.getOrDefault(MNamespacedKeys.ME_SYSTEM_TERMINAL, MEPersistentDataTypes.BOOLEAN, false);
     }
 
     public boolean isDrive(){
-        return this.persistentDataContainer.getOrDefault(MNamespacedKeys.ME_SYSTEM_DRIVE, new PersistentDataTypeBoolean(), false);
+        return this.persistentDataContainer.getOrDefault(MNamespacedKeys.ME_SYSTEM_DRIVE, MEPersistentDataTypes.BOOLEAN, false);
     }
 
     public MEItem setSlotAmount(int integer){
@@ -43,12 +44,12 @@ public class MEItem {
     }
 
     public MEItem setTerminal(boolean terminal){
-        this.persistentDataContainer.set(MNamespacedKeys.ME_SYSTEM_TERMINAL, new PersistentDataTypeBoolean(), terminal);
+        this.persistentDataContainer.set(MNamespacedKeys.ME_SYSTEM_TERMINAL, MEPersistentDataTypes.BOOLEAN, terminal);
         return this;
     }
 
     public MEItem setDrive(boolean drive){
-        this.persistentDataContainer.set(MNamespacedKeys.ME_SYSTEM_DRIVE, new PersistentDataTypeBoolean(), drive);
+        this.persistentDataContainer.set(MNamespacedKeys.ME_SYSTEM_DRIVE, MEPersistentDataTypes.BOOLEAN, drive);
         return this;
     }
 

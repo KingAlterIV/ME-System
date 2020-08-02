@@ -17,7 +17,7 @@ public final class PersistentDataTypeItemStack implements PersistentDataType<Str
 
     private final boolean strict;
 
-    public PersistentDataTypeItemStack(boolean strict) {
+    PersistentDataTypeItemStack(boolean strict) {
         this.strict = strict;
     }
 

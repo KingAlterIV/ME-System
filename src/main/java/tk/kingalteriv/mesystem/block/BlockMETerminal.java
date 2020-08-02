@@ -6,7 +6,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataHolder;
 import org.bukkit.persistence.PersistentDataType;
 
-import tk.kingalteriv.mesystem.persistence.PersistentDataTypeBoolean;
+import tk.kingalteriv.mesystem.persistence.MEPersistentDataTypes;
 import tk.kingalteriv.mesystem.utilities.MNamespacedKeys;
 
 public class BlockMETerminal {
@@ -54,7 +54,7 @@ public class BlockMETerminal {
 
         // Update NBT from fields
         container.set(MNamespacedKeys.ME_SYSTEM_SLOTS, PersistentDataType.INTEGER, slotAmount);
-        container.set(MNamespacedKeys.ME_SYSTEM_TERMINAL, new PersistentDataTypeBoolean(), terminal);
+        container.set(MNamespacedKeys.ME_SYSTEM_TERMINAL, MEPersistentDataTypes.BOOLEAN, terminal);
 
         state.update(false, false);
     }
@@ -69,7 +69,7 @@ public class BlockMETerminal {
 
         // Update fields from NBT
         this.slotAmount = container.getOrDefault(MNamespacedKeys.ME_SYSTEM_SLOTS, PersistentDataType.INTEGER, 0);
-        this.terminal = container.getOrDefault(MNamespacedKeys.ME_SYSTEM_TERMINAL, new PersistentDataTypeBoolean(), false);
+        this.terminal = container.getOrDefault(MNamespacedKeys.ME_SYSTEM_TERMINAL, MEPersistentDataTypes.BOOLEAN, false);
     }
 
 }

@@ -2,9 +2,12 @@ package tk.kingalteriv.mesystem.persistence;
 
 import org.bukkit.persistence.PersistentDataAdapterContext;
 import org.bukkit.persistence.PersistentDataType;
+
 import org.jetbrains.annotations.NotNull;
 
 public class PersistentDataTypeBoolean implements PersistentDataType<Byte, Boolean> {
+
+    PersistentDataTypeBoolean() { }
 
     @Override
     public @NotNull Class<Byte> getPrimitiveType() {

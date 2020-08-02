@@ -4,8 +4,8 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataHolder;
-import org.bukkit.persistence.PersistentDataType;
-import tk.kingalteriv.mesystem.persistence.PersistentDataTypeBoolean;
+
+import tk.kingalteriv.mesystem.persistence.MEPersistentDataTypes;
 import tk.kingalteriv.mesystem.utilities.MNamespacedKeys;
 
 public class BlockMEDrive {
@@ -43,7 +43,7 @@ public class BlockMEDrive {
         PersistentDataContainer container = ((PersistentDataHolder) state).getPersistentDataContainer();
 
         // Update NBT from fields
-        container.set(MNamespacedKeys.ME_SYSTEM_DRIVE, new PersistentDataTypeBoolean(), drive);
+        container.set(MNamespacedKeys.ME_SYSTEM_DRIVE, MEPersistentDataTypes.BOOLEAN, drive);
 
         state.update(false, false);
     }
@@ -57,6 +57,6 @@ public class BlockMEDrive {
         PersistentDataContainer container = ((PersistentDataHolder) state).getPersistentDataContainer();
 
         // Update fields from NBT
-        this.drive = container.getOrDefault(MNamespacedKeys.ME_SYSTEM_DRIVE, new PersistentDataTypeBoolean(), false);
+        this.drive = container.getOrDefault(MNamespacedKeys.ME_SYSTEM_DRIVE, MEPersistentDataTypes.BOOLEAN, false);
     }
 }
