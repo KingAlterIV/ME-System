@@ -7,21 +7,21 @@ import org.bukkit.block.Block;
 
 public class MEStateHandler {
 
-    private final Map<Block, BlockMECore> cores = new HashMap<>();
+    private final Map<Block, BlockMETerminal> cores = new HashMap<>();
 
-    public void registerCore(BlockMECore core) {
+    public void registerCore(BlockMETerminal core) {
         this.cores.put(core.getBlock(), core);
     }
 
-    public BlockMECore getCore(Block block) {
+    public BlockMETerminal getCore(Block block) {
         return cores.get(block);
     }
 
-    public void unregisterCore(BlockMECore core) {
+    public void unregisterCore(BlockMETerminal core) {
         this.cores.remove(core.getBlock());
     }
 
-    public BlockMECore unregisterCore(Block block) {
+    public BlockMETerminal unregisterCore(Block block) {
         return cores.remove(block);
     }
 

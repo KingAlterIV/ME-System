@@ -4,26 +4,26 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Dispenser;
+import org.bukkit.block.data.Directional;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-
 import tk.kingalteriv.mesystem.MEItem;
 import tk.kingalteriv.mesystem.MESystem;
-import tk.kingalteriv.mesystem.block.BlockMECore;
+import tk.kingalteriv.mesystem.block.BlockMETerminal;
 
-public class RightClickListener implements Listener {
+public class METerminalPlacementListener implements Listener {
 
     private final MESystem plugin;
 
-    public RightClickListener(MESystem plugin) {
+    public METerminalPlacementListener(MESystem plugin) {
         this.plugin = plugin;
     }
 
     @EventHandler
-    public void rightClickListener(PlayerInteractEvent event){
+    public void blockPlacementListener(PlayerInteractEvent event){
         ItemStack item = event.getItem();
         if (!MESystem.ITEM_ME_SYSTEM.isSimilar(item)) {
             return;
@@ -47,7 +47,12 @@ public class RightClickListener implements Listener {
             if (state instanceof Dispenser) {
                 MEItem meItem = new MEItem(item);
 
-                BlockMECore core = new BlockMECore(clickedBlock, false);
+                Directional blockData = (Directional) clickedBlock.getBlockData();
+                blockData.setFacing(event.getPlayer().getFacing().getOppositeFace());
+                clickedBlock.setBlockData(blockData);
+
+                BlockMETerminal core = new BlockMETerminal(clickedBlock, false);
+                core.setTerminal(true);
                 core.setSlotAmount(meItem.getSlotAmount());
                 core.writeToState();
 

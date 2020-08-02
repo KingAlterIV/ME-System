@@ -5,16 +5,16 @@ import org.bukkit.block.BlockState;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataHolder;
 import org.bukkit.persistence.PersistentDataType;
-
+import tk.kingalteriv.mesystem.persistence.PersistentDataTypeBoolean;
 import tk.kingalteriv.mesystem.utilities.MNamespacedKeys;
 
-public class BlockMECore {
+public class BlockMEDrive {
 
-    private int slotAmount;
+    private boolean drive;
 
     private final Block block;
 
-    public BlockMECore(Block block, boolean readFromState) {
+    public BlockMEDrive(Block block, boolean readFromState) {
         this.block = block;
 
         if (readFromState) {
@@ -26,12 +26,12 @@ public class BlockMECore {
         return block;
     }
 
-    public void setSlotAmount(int slotAmount) {
-        this.slotAmount = slotAmount;
+    public void setDrive(boolean bool) {
+        this.drive = bool;
     }
 
-    public int getSlotAmount() {
-        return slotAmount;
+    public boolean isDrive() {
+        return drive;
     }
 
     public void writeToState() {
@@ -43,7 +43,7 @@ public class BlockMECore {
         PersistentDataContainer container = ((PersistentDataHolder) state).getPersistentDataContainer();
 
         // Update NBT from fields
-        container.set(MNamespacedKeys.ME_SYSTEM_SLOTS, PersistentDataType.INTEGER, slotAmount);
+        container.set(MNamespacedKeys.ME_SYSTEM_DRIVE, new PersistentDataTypeBoolean(), drive);
 
         state.update(false, false);
     }
@@ -57,7 +57,6 @@ public class BlockMECore {
         PersistentDataContainer container = ((PersistentDataHolder) state).getPersistentDataContainer();
 
         // Update fields from NBT
-        this.slotAmount = container.getOrDefault(MNamespacedKeys.ME_SYSTEM_SLOTS, PersistentDataType.INTEGER, 0);
+        this.drive = container.getOrDefault(MNamespacedKeys.ME_SYSTEM_DRIVE, new PersistentDataTypeBoolean(), false);
     }
-
 }

@@ -1,28 +1,21 @@
 package tk.kingalteriv.mesystem;
 
 import co.aikar.commands.PaperCommandManager;
-
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import tk.kingalteriv.mesystem.block.MEStateHandler;
 import tk.kingalteriv.mesystem.commands.MESystemCommand;
-import tk.kingalteriv.mesystem.listeners.RightClickListener;
-import tk.kingalteriv.mesystem.utilities.ItemBuilder;
-import tk.kingalteriv.mesystem.utilities.MNamespacedKeys;
+import tk.kingalteriv.mesystem.listeners.METerminalPlacementListener;
+import tk.kingalteriv.mesystem.listeners.MEDrivePlacementListener;
 import tk.kingalteriv.mesystem.utilities.ReflectionUtils;
+import tk.kingalteriv.mesystem.utilities.loader.ItemLoader;
 
 public class MESystem extends JavaPlugin {
 
-    public static final ItemStack ITEM_ME_SYSTEM = ItemBuilder.of(Material.SNOWBALL)
-            .modelData(69)
-            .applyPersistentData(container -> {
-                container.set(MNamespacedKeys.ME_SYSTEM_SLOTS, PersistentDataType.INTEGER, 0);
-            }).build();
-
+    public static ItemStack ITEM_ME_SYSTEM;
+    public static ItemStack ITEM_ME_DRIVE;
+    
     private static MESystem instance;
 
     private PaperCommandManager commandManager;
@@ -40,7 +33,10 @@ public class MESystem extends JavaPlugin {
         this.commandManager.registerCommand(new MESystemCommand());
         this.stateHandler = new MEStateHandler();
 
-        Bukkit.getPluginManager().registerEvents(new RightClickListener(this), this);
+        ItemLoader.loadAllItems();
+
+        Bukkit.getPluginManager().registerEvents(new METerminalPlacementListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new MEDrivePlacementListener(this), this);
     }
 
     public PaperCommandManager getManager() {

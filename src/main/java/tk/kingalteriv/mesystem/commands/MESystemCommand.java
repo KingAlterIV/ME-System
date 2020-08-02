@@ -24,6 +24,7 @@ public class MESystemCommand extends BaseCommand {
     @CommandPermission("mesystem.give")
     public void onGive(Player sender) {
         sender.getInventory().addItem(MESystem.ITEM_ME_SYSTEM);
+        sender.getInventory().addItem(MESystem.ITEM_ME_DRIVE);
     }
 
 }
