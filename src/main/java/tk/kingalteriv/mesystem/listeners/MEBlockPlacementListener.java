@@ -11,7 +11,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-
 import tk.kingalteriv.mesystem.MEItem;
 import tk.kingalteriv.mesystem.MESystem;
 import tk.kingalteriv.mesystem.block.BlockMEDrive;
@@ -38,7 +37,7 @@ public class MEBlockPlacementListener implements Listener {
         }
 
         ItemStack item = event.getItem();
-        if (!MESystem.ITEM_ME_SYSTEM.isSimilar(item)) {
+        if (MESystem.ITEM_ME_SYSTEM.isSimilar(item)) {
             event.setCancelled(true);
 
             if (action == Action.RIGHT_CLICK_BLOCK) {
@@ -60,7 +59,7 @@ public class MEBlockPlacementListener implements Listener {
                 }
             }
         }
-        else if (!MESystem.ITEM_ME_DRIVE.isSimilar(item)) {
+        else if (MESystem.ITEM_ME_DRIVE.isSimilar(item)) {
             event.setCancelled(true);
 
             if (action == Action.RIGHT_CLICK_BLOCK) {

@@ -4,8 +4,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-
-import tk.kingalteriv.mesystem.persistence.MEPersistentDataTypes;
 import tk.kingalteriv.mesystem.utilities.MNamespacedKeys;
 
 public class MEItem {
@@ -31,11 +29,15 @@ public class MEItem {
     }
 
     public boolean isTerminal(){
-        return this.persistentDataContainer.getOrDefault(MNamespacedKeys.ME_SYSTEM_TERMINAL, MEPersistentDataTypes.BOOLEAN, false);
+        return this.persistentDataContainer.getOrDefault(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, PersistentDataType.STRING, "null").equals("METerminal");
     }
 
     public boolean isDrive(){
-        return this.persistentDataContainer.getOrDefault(MNamespacedKeys.ME_SYSTEM_DRIVE, MEPersistentDataTypes.BOOLEAN, false);
+        return this.persistentDataContainer.getOrDefault(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, PersistentDataType.STRING, "null").equals("MEDrive");
+    }
+
+    public boolean isCell(){
+        return this.persistentDataContainer.getOrDefault(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, PersistentDataType.STRING, "null").equals("MECell");
     }
 
     public MEItem setSlotAmount(int integer){
@@ -44,12 +46,17 @@ public class MEItem {
     }
 
     public MEItem setTerminal(boolean terminal){
-        this.persistentDataContainer.set(MNamespacedKeys.ME_SYSTEM_TERMINAL, MEPersistentDataTypes.BOOLEAN, terminal);
+        this.persistentDataContainer.set(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, PersistentDataType.STRING, terminal ? "METerminal" : "null");
         return this;
     }
 
     public MEItem setDrive(boolean drive){
-        this.persistentDataContainer.set(MNamespacedKeys.ME_SYSTEM_DRIVE, MEPersistentDataTypes.BOOLEAN, drive);
+        this.persistentDataContainer.set(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, PersistentDataType.STRING, drive ? "MEDrive" : "null");
+        return this;
+    }
+
+    public MEItem setCell(boolean cell){
+        this.persistentDataContainer.set(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, PersistentDataType.STRING, cell ? "MECell" : "null");
         return this;
     }
 

@@ -25,6 +25,7 @@ public class MESystemCommand extends BaseCommand {
     public void onGive(Player sender) {
         sender.getInventory().addItem(MESystem.ITEM_ME_SYSTEM);
         sender.getInventory().addItem(MESystem.ITEM_ME_DRIVE);
+        sender.getInventory().addItem(MESystem.ITEM_ME_CELL_1);
     }
 
 }

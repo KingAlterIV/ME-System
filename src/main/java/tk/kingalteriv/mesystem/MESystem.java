@@ -16,6 +16,7 @@ public class MESystem extends JavaPlugin {
 
     public static ItemStack ITEM_ME_SYSTEM;
     public static ItemStack ITEM_ME_DRIVE;
+    public static ItemStack ITEM_ME_CELL_1;
 
     private static MESystem instance;
 
