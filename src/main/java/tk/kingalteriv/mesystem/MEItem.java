@@ -4,7 +4,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import tk.kingalteriv.mesystem.persistence.MEPersistentDataTypes;
 import tk.kingalteriv.mesystem.utilities.MNamespacedKeys;
+import tk.kingalteriv.mesystem.utilities.enums.MEItemType;
 
 public class MEItem {
 
@@ -25,19 +27,8 @@ public class MEItem {
     }
 
     public int getTotalAmount(){
-        return this.persistentDataContainer.getOrDefault(MNamespacedKeys.ME_SYSTEM_ITEM_TOTAL_AMOUNT, PersistentDataType.INTEGER, 0);
-    }
-
-    public boolean isTerminal(){
-        return this.persistentDataContainer.getOrDefault(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, PersistentDataType.STRING, "null").equals("METerminal");
-    }
-
-    public boolean isDrive(){
-        return this.persistentDataContainer.getOrDefault(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, PersistentDataType.STRING, "null").equals("MEDrive");
-    }
-
-    public boolean isCell(){
-        return this.persistentDataContainer.getOrDefault(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, PersistentDataType.STRING, "null").equals("MECell");
+        return this.persistentDataContainer.getOrDefault(MNamespacedKeys.ME_SYSTEM_ITEM_TOTAL_AMOUNT,
+                PersistentDataType.INTEGER, 0);
     }
 
     public MEItem setSlotAmount(int integer){
@@ -45,25 +36,15 @@ public class MEItem {
         return this;
     }
 
-    public MEItem setTerminal(boolean terminal){
-        this.persistentDataContainer.set(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, PersistentDataType.STRING, terminal ? "METerminal" : "null");
+    public MEItem setType(MEItemType type){
+        this.persistentDataContainer.set(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, MEPersistentDataTypes.ME_ITEM_TYPE_ENUM, type);
         return this;
     }
 
-    public MEItem setDrive(boolean drive){
-        this.persistentDataContainer.set(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, PersistentDataType.STRING, drive ? "MEDrive" : "null");
-        return this;
+    public MEItemType getType(){
+        return this.persistentDataContainer.getOrDefault(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, MEPersistentDataTypes.ME_ITEM_TYPE_ENUM, MEItemType.fromString("null"));
     }
 
-    public MEItem setCell(boolean cell){
-        this.persistentDataContainer.set(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, PersistentDataType.STRING, cell ? "MECell" : "null");
-        return this;
-    }
-
-    public MEItem setTotalAmount(int totalAmount) {
-        this.persistentDataContainer.set(MNamespacedKeys.ME_SYSTEM_ITEM_TOTAL_AMOUNT, PersistentDataType.INTEGER, totalAmount);
-        return this;
-    }
 
     public ItemStack build(){
         this.itemStack.setItemMeta(this.meta);

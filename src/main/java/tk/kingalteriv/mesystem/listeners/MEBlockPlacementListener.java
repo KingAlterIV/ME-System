@@ -31,13 +31,14 @@ public class MEBlockPlacementListener implements Listener {
             return;
         }
 
-        Block clickedBlock = event.getClickedBlock().getRelative(event.getBlockFace());
-        if (clickedBlock == null || clickedBlock.getType() != Material.AIR) {
-            return;
-        }
+        Block clickedBlock = event.getClickedBlock();
+        if (clickedBlock == null) return;
+
+        clickedBlock = clickedBlock.getRelative(event.getBlockFace()); // Was giving me an NPE so that null above check was made
+        if (clickedBlock.getType() != Material.AIR) return;
 
         ItemStack item = event.getItem();
-        if (MESystem.ITEM_ME_SYSTEM.isSimilar(item)) {
+        if (MESystem.ITEM_ME_TERMINAL.isSimilar(item)) {
             event.setCancelled(true);
 
             if (action == Action.RIGHT_CLICK_BLOCK) {

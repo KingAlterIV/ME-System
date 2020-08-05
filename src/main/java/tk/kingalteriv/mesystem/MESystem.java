@@ -1,11 +1,9 @@
 package tk.kingalteriv.mesystem;
 
 import co.aikar.commands.PaperCommandManager;
-
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import tk.kingalteriv.mesystem.block.MEStateHandler;
 import tk.kingalteriv.mesystem.commands.MESystemCommand;
 import tk.kingalteriv.mesystem.listeners.MEBlockPlacementListener;
@@ -14,7 +12,7 @@ import tk.kingalteriv.mesystem.utilities.loader.ItemLoader;
 
 public class MESystem extends JavaPlugin {
 
-    public static ItemStack ITEM_ME_SYSTEM;
+    public static ItemStack ITEM_ME_TERMINAL;
     public static ItemStack ITEM_ME_DRIVE;
     public static ItemStack ITEM_ME_CELL_1;
 

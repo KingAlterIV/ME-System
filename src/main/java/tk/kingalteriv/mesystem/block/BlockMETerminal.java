@@ -6,12 +6,14 @@ import org.bukkit.block.BlockState;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataHolder;
 import org.bukkit.persistence.PersistentDataType;
+import tk.kingalteriv.mesystem.persistence.MEPersistentDataTypes;
 import tk.kingalteriv.mesystem.utilities.MNamespacedKeys;
+import tk.kingalteriv.mesystem.utilities.enums.MEItemType;
 
 public class BlockMETerminal {
 
     private int slotAmount;
-    private String terminal;
+    private MEItemType terminal;
 
     private final Block block;
     private final Location location;
@@ -37,12 +39,12 @@ public class BlockMETerminal {
         return slotAmount;
     }
 
-    public void setTerminal(boolean bool) {
-        this.terminal = bool ? "METerminal" : null;
+    public void setTerminal(boolean terminal) {
+        this.terminal = terminal ? MEItemType.METerminal : MEItemType.valueOf("Null");
     }
 
     public boolean isTerminal() {
-        return terminal.equals("METerminal");
+        return terminal.equals(MEItemType.METerminal);
     }
 
     public void writeToState() {
@@ -55,7 +57,7 @@ public class BlockMETerminal {
 
         // Update NBT from fields
         container.set(MNamespacedKeys.ME_SYSTEM_SLOTS, PersistentDataType.INTEGER, slotAmount);
-        container.set(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, PersistentDataType.STRING, terminal);
+        container.set(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, MEPersistentDataTypes.ME_ITEM_TYPE_ENUM, terminal);
 
         state.update(false, false);
     }
@@ -70,7 +72,7 @@ public class BlockMETerminal {
 
         // Update fields from NBT
         this.slotAmount = container.getOrDefault(MNamespacedKeys.ME_SYSTEM_SLOTS, PersistentDataType.INTEGER, 0);
-        this.terminal = container.getOrDefault(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, PersistentDataType.STRING, "null");
+        this.terminal = container.getOrDefault(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, MEPersistentDataTypes.ME_ITEM_TYPE_ENUM, MEItemType.fromString("null"));
     }
 
 }

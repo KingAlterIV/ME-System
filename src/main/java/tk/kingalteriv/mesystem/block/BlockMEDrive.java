@@ -6,11 +6,14 @@ import org.bukkit.block.BlockState;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataHolder;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
+import tk.kingalteriv.mesystem.persistence.MEPersistentDataTypes;
 import tk.kingalteriv.mesystem.utilities.MNamespacedKeys;
+import tk.kingalteriv.mesystem.utilities.enums.MEItemType;
 
 public class BlockMEDrive {
 
-    private String drive;
+    private @NotNull MEItemType drive;
 
     private final Block block;
     private final Location location;
@@ -29,11 +32,11 @@ public class BlockMEDrive {
     }
 
     public void setDrive(boolean bool) {
-        this.drive = bool ? "MEDrive" : null;
+        this.drive = bool ? MEItemType.MEDrive : MEItemType.valueOf("Null");
     }
 
     public boolean isDrive() {
-        return drive.equals("MEDrive");
+        return drive.equals(MEItemType.MEDrive);
     }
 
     public void writeToState() {
@@ -45,7 +48,7 @@ public class BlockMEDrive {
         PersistentDataContainer container = ((PersistentDataHolder) state).getPersistentDataContainer();
 
         // Update NBT from fields
-        container.set(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, PersistentDataType.STRING, this.drive);
+        container.set(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, MEPersistentDataTypes.ME_ITEM_TYPE_ENUM, this.drive);
 
         state.update(false, false);
     }
@@ -59,7 +62,7 @@ public class BlockMEDrive {
         PersistentDataContainer container = ((PersistentDataHolder) state).getPersistentDataContainer();
 
         // Update fields from NBT
-        this.drive = container.getOrDefault(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, PersistentDataType.STRING, "null");
+        this.drive = container.getOrDefault(MNamespacedKeys.ME_SYSTEM_ITEM_TYPE, MEPersistentDataTypes.ME_ITEM_TYPE_ENUM, MEItemType.fromString("null"));
     }
 
 }
