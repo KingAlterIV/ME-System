@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import tk.kingalteriv.mesystem.block.MEStateHandler;
 import tk.kingalteriv.mesystem.commands.MESystemCommand;
 import tk.kingalteriv.mesystem.listeners.MEBlockPlacementListener;
+import tk.kingalteriv.mesystem.listeners.MEBlockThrowListener;
 import tk.kingalteriv.mesystem.utilities.ReflectionUtils;
 import tk.kingalteriv.mesystem.utilities.loader.ItemLoader;
 
@@ -36,6 +37,7 @@ public class MESystem extends JavaPlugin {
         ItemLoader.loadAllItems();
 
         Bukkit.getPluginManager().registerEvents(new MEBlockPlacementListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new MEBlockThrowListener(this), this);
     }
 
     public PaperCommandManager getManager() {
