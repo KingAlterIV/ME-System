@@ -34,28 +34,40 @@ public class MEDriveInventoryValidItemTypeListener implements Listener {
         Block block = inventory.getLocation().getBlock();
         if (block.getType() != Material.DROPPER) return;
 
-        ItemStack cursorItem = event.getCursor();
-        if (cursorItem == null) return;
-        if (cursorItem.getType() == Material.AIR) return;
-
-        MEItem meCursor = new MEItem(cursorItem);
+        ClickType clickType = event.getClick();
 
         BlockState blockState = block.getState();
         if (blockState instanceof Dropper) {
             BlockMEDrive drive = new BlockMEDrive(block, true);
-            if (event.getRawSlot() <= 8) {
-                if (drive.isDrive()) {
-                    event.setCancelled(true);
-                    ClickType clickType = event.getClick();
-                    System.out.println(meCursor.getType());
-                    if (clickType == ClickType.LEFT && meCursor.getType() == MEItemType.MECell) {
-                        System.out.println("A");
-                        event.setCancelled(false);
-                    }
+
+            if (clickType == ClickType.LEFT && event.getRawSlot() <= 8 && drive.isDrive()) {
+
+                ItemStack cursorItem = event.getCursor();
+                if (cursorItem == null) return;
+                if (cursorItem.getType() == Material.AIR) return;
+
+                MEItem meCursor = new MEItem(cursorItem);
+
+                event.setCancelled(true);
+                if (meCursor.getType() == MEItemType.MECell) {
+                    event.setCancelled(false);
+                }
+            } else if (clickType == ClickType.SHIFT_LEFT && drive.isDrive()) {
+
+                ItemStack clickedItem = event.getCurrentItem();
+                if (clickedItem == null) return;
+                if (clickedItem.getType() == Material.AIR) return;
+
+                MEItem meClicked = new MEItem(clickedItem);
+
+                event.setCancelled(true);
+                if (meClicked.getType() == MEItemType.MECell) {
+                    event.setCancelled(false);
                 }
             }
         }
     }
+
 
     @EventHandler
     public void meDriveInventoryDragListener(InventoryDragEvent event) {
